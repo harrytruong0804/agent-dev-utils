@@ -1,5 +1,5 @@
 ---
-name: oat
+name: integrate
 description: Integrate OAT (OpenAI Agents Tracing) dashboard into the current project. Generates docker-compose, tracing processor, config entries, and wiring code.
 argument-hint: "[--force]"
 ---

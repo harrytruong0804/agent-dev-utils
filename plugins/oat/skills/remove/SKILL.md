@@ -1,5 +1,5 @@
 ---
-name: oat-remove
+name: remove
 description: Remove OAT (OpenAI Agents Tracing) integration from the current project. Deletes generated files, config entries, and wiring code.
 ---
 

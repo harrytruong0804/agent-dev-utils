@@ -1,0 +1,13 @@
+{
+  "name": "agent-dev-utils",
+  "owner": {
+    "name": "harrytruong0804"
+  },
+  "plugins": [
+    {
+      "name": "oat",
+      "source": "./plugins/oat",
+      "description": "Integrate OAT (OpenAI Agents Tracing) dashboard into OpenAI Agent SDK projects"
+    }
+  ]
+}
