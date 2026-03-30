@@ -1,0 +1,10 @@
+{
+  "name": "openai-agents-tracing",
+  "description": "Self-hosted tracing dashboard for OpenAI Agent SDK — trace viewer with token usage, cached/reasoning breakdown, and agent-level aggregation",
+  "version": "1.0.0",
+  "author": {
+    "name": "harrytruong0804"
+  },
+  "repository": "https://github.com/harrytruong0804/agent-dev-utils",
+  "license": "MIT"
+}

@@ -5,8 +5,8 @@
   },
   "plugins": [
     {
-      "name": "oat",
-      "source": "./plugins/oat",
+      "name": "openai-agents-tracing",
+      "source": "./plugins/openai-agents-tracing",
       "description": "Integrate OAT (OpenAI Agents Tracing) dashboard into OpenAI Agent SDK projects"
     }
   ]
