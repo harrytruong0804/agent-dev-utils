@@ -1,51 +1,44 @@
 # agent-dev-utils
 
-Claude Code plugin for OpenAI Agent SDK projects. Provides slash commands for setting up and managing the [OAT (OpenAI Agents Tracing)](https://github.com/yusuf-eren/openai-agents-tracing) dashboard.
-
-## Skills
-
-| Command | Description |
-|---------|-------------|
-| `/agent-dev-utils:setup-oat` | Set up OAT in your project — generates docker-compose, tracing processor, config, and integration code |
-| `/agent-dev-utils:update-oat [version]` | Pull latest OAT Docker images and restart the dashboard |
+Claude Code plugin with developer utilities for OpenAI Agent SDK projects.
 
 ## Install
 
 ```bash
-# In Claude Code
 /install-plugin harrytruong0804/agent-dev-utils
 ```
 
-## What `/setup-oat` generates
+## Skills
 
-- **`docker-compose.oat.yml`** — MongoDB + OAT API + OAT Client, ready to `docker compose up`
-- **`oat_tracing_processor.py`** — `TracingProcessor` implementation that exports spans to the OAT dashboard, with:
-  - Rich span data extraction (model, usage, reasoning, tool calls)
-  - Cached & reasoning token tracking (`input_tokens_details`, `output_tokens_details`)
-  - Agent-level usage aggregation (rolls up child span tokens)
-- **Config entries** — Pydantic settings for `oat_dashboard_enabled`, `oat_dashboard_api_url`, `oat_dashboard_api_key`
-- **Integration snippet** — Wires the processor into `set_trace_processors()`
+### OAT (OpenAI Agents Tracing)
 
-## OAT Docker Images
+Self-hosted tracing dashboard for OpenAI Agent SDK — view traces, spans, token usage (cached/reasoning), and agent-level aggregation.
 
-Images on Docker Hub:
-- [`noitq/oat-api`](https://hub.docker.com/r/noitq/oat-api)
-- [`noitq/oat-client`](https://hub.docker.com/r/noitq/oat-client)
+| Command | Description |
+|---------|-------------|
+| `/agent-dev-utils:oat` | Integrate OAT into the current project |
+| `/agent-dev-utils:oat-remove` | Remove OAT integration from the current project |
 
-## Quick Start
+**`/oat` generates:**
+- `docker-compose.oat.yml` — MongoDB + OAT API + OAT Client
+- `oat_tracing_processor.py` — TracingProcessor with rich span extraction, cached/reasoning token tracking, agent-level usage aggregation
+- Config entries — `oat_dashboard_enabled`, `oat_dashboard_api_url`, `oat_dashboard_api_key`
+- Integration wiring — hooks the processor into `set_trace_processors()`
 
-```bash
-# 1. Run setup-oat in your project
-/agent-dev-utils:setup-oat
+**`/oat-remove`** cleanly undoes everything `/oat` created.
 
-# 2. Start the dashboard
-docker compose -f docker-compose.oat.yml up -d
+**Docker images:** [`noitq/oat-api`](https://hub.docker.com/r/noitq/oat-api) / [`noitq/oat-client`](https://hub.docker.com/r/noitq/oat-client)
 
-# 3. Enable in .env
-OAT_DASHBOARD_ENABLED=true
+## Adding more skills
 
-# 4. Open dashboard
-# http://localhost:3800
+This repo is designed to hold multiple utility skill sets. To add a new one:
+
+```
+skills/
+├── oat/            # /agent-dev-utils:oat
+├── oat-remove/     # /agent-dev-utils:oat-remove
+├── new-tool/       # /agent-dev-utils:new-tool
+└── new-tool-remove/
 ```
 
 ## License
