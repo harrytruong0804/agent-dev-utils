@@ -10,8 +10,8 @@
       "description": "Integrate OAT (OpenAI Agents Tracing) dashboard into OpenAI Agent SDK projects"
     },
     {
-      "name": "context-engineering-pro-max",
-      "source": "./plugins/context-engineering-pro-max",
+      "name": "context-engineering",
+      "source": "./plugins/context-engineering",
       "description": "Context engineering audit for AI agent codebases — reviews prompts, tools, handoffs, guardrails, and memory management"
     }
   ]

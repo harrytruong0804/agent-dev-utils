@@ -1,5 +1,5 @@
 {
-  "name": "context-engineering-pro-max",
+  "name": "context-engineering",
   "version": "0.1.0",
   "description": "Deep context analysis for agentic systems — collects, categorizes, and analyzes all prompt fragments across your codebase and MCP servers. Detects conflicts, redundancy, vagueness, and provides model-specific best practice recommendations.",
   "author": {
