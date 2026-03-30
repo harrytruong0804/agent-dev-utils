@@ -1,0 +1,49 @@
+services:
+  oat-mongodb:
+    image: mongo:7
+    container_name: oat-mongodb
+    restart: unless-stopped
+    ports:
+      - '38017:27017'
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=tracingpass
+      - MONGO_INITDB_DATABASE=traces
+    volumes:
+      - oat_mongodb_data:/data/db
+    networks:
+      - oat-network
+
+  oat-api:
+    image: noitq/oat-api:${OAT_VERSION:-latest}
+    container_name: oat-api
+    restart: unless-stopped
+    ports:
+      - '3801:3001'
+    environment:
+      - NODE_ENV=production
+      - PORT=3001
+      - MONGODB_URI=mongodb://admin:tracingpass@oat-mongodb:27017/traces?authSource=admin
+      - JWT_SECRET=${OAT_JWT_SECRET:-oat-jwt-secret-change-me}
+    depends_on:
+      - oat-mongodb
+    networks:
+      - oat-network
+
+  oat-client:
+    image: noitq/oat-client:${OAT_VERSION:-latest}
+    container_name: oat-client
+    restart: unless-stopped
+    ports:
+      - '3800:80'
+    depends_on:
+      - oat-api
+    networks:
+      - oat-network
+
+networks:
+  oat-network:
+    driver: bridge
+
+volumes:
+  oat_mongodb_data:

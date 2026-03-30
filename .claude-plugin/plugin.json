@@ -1,0 +1,11 @@
+{
+  "name": "agent-dev-utils",
+  "description": "Developer utilities for OpenAI Agent SDK projects",
+  "version": "1.0.0",
+  "author": {
+    "name": "harrytruong0804"
+  },
+  "homepage": "https://github.com/harrytruong0804/agent-dev-utils",
+  "repository": "https://github.com/harrytruong0804/agent-dev-utils",
+  "license": "MIT"
+}
