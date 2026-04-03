@@ -1,5 +1,5 @@
 """Custom TracingProcessor that exports OpenAI Agent SDK traces to the
-OAT dashboard (https://github.com/yusuf-eren/openai-agents-tracing).
+OAT dashboard (https://github.com/harrytruong0804/openai-agents-tracing).
 
 Converts SDK Trace/Span objects into the dashboard's ingestion format and POSTs
 them to the /traces/event endpoint.
@@ -28,6 +28,9 @@ def _safe_json_serialize(obj: Any) -> Any:
     return str(obj)
 
 
+DEFAULT_WORKFLOW_NAME = "agent-workflow"
+
+
 class OpenAIAgentsTracingDashboardProcessor(TracingProcessor):
     """Bridges the OpenAI Agent SDK tracing API to the self-hosted OAT dashboard.
 
@@ -40,10 +43,12 @@ class OpenAIAgentsTracingDashboardProcessor(TracingProcessor):
         api_url: str,
         api_key: str,
         timeout: float = 10.0,
+        workflow_name: str = DEFAULT_WORKFLOW_NAME,
     ) -> None:
         self._api_url = api_url.rstrip("/")
         self._api_key = api_key
         self._timeout = timeout
+        self._workflow_name = workflow_name
 
         self._trace_spans: dict[str, list[dict[str, Any]]] = {}
         self._orphan_spans: dict[str, list[dict[str, Any]]] = {}
@@ -83,7 +88,7 @@ class OpenAIAgentsTracingDashboardProcessor(TracingProcessor):
         trace_event: dict[str, Any] = {
             "object": "trace",
             "id": trace_id,
-            "workflow_name": trace_export.get("name", "agent-workflow"),
+            "workflow_name": trace_export.get("name", self._workflow_name),
             "group_id": trace_export.get("group_id"),
             "metadata": trace_export.get("metadata") or {},
         }
@@ -177,7 +182,7 @@ class OpenAIAgentsTracingDashboardProcessor(TracingProcessor):
         for trace_id, spans in orphans.items():
             if not spans:
                 continue
-            self._flush_spans(trace_id, spans, workflow="agent-workflow-orphans")
+            self._flush_spans(trace_id, spans, workflow=f"{self._workflow_name}-orphans")
 
     @staticmethod
     def _extract_response_data(span_data: Any) -> dict[str, Any]:
@@ -334,14 +339,14 @@ class OpenAIAgentsTracingDashboardProcessor(TracingProcessor):
             agent_span.setdefault("span_data", {})["usage"] = usage_dict
 
     def _flush_spans(
-        self, trace_id: str, spans: list[dict[str, Any]], workflow: str = "agent-workflow"
+        self, trace_id: str, spans: list[dict[str, Any]], workflow: str | None = None
     ) -> None:
         payload: dict[str, Any] = {
             "data": [
                 {
                     "object": "trace",
                     "id": trace_id,
-                    "workflow_name": workflow,
+                    "workflow_name": workflow or self._workflow_name,
                     "group_id": None,
                     "metadata": {},
                 }
