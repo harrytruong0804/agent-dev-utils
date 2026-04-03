@@ -13,6 +13,11 @@
       "name": "context-engineering",
       "source": "./plugins/context-engineering",
       "description": "Context engineering audit for AI agent codebases — reviews prompts, tools, handoffs, guardrails, and memory management"
+    },
+    {
+      "name": "claude-code-plugin-dev",
+      "source": "./plugins/claude-code-plugin-dev",
+      "description": "Guide for developing, versioning, releasing, and self-updating Claude Code plugins via Git-based marketplaces"
     }
   ]
 }
