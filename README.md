@@ -11,7 +11,7 @@ Claude Code plugin marketplace for AI agent development.
 # 2. Install a specific plugin
 /plugin install openai-agents-tracing@agent-dev-utils
 /plugin install context-engineering@agent-dev-utils
-/plugin install claude-code-plugin-dev@agent-dev-utils
+/plugin install plugin-dev@agent-dev-utils
 ```
 
 ## Plugins
@@ -20,7 +20,7 @@ Claude Code plugin marketplace for AI agent development.
 |--------|-------------|
 | `openai-agents-tracing` | Self-hosted tracing dashboard for OpenAI Agent SDK |
 | `context-engineering` | Context engineering audit for AI agent codebases |
-| `claude-code-plugin-dev` | Plugin development lifecycle — dev, version, release, self-update |
+| `plugin-dev` | Plugin development lifecycle — dev, version, release, self-update |
 
 ## License
 
