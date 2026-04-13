@@ -1,5 +1,5 @@
 ---
-name: get-latest-trace
+name: get-trace
 description: Fetch a trace from the running OAT dashboard by ID and analyze the LLM + tools execution flow, token usage, reasoning, and self-corrections.
 argument-hint: "<trace_id>"
 ---
